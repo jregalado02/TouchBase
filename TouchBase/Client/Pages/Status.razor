@@ -1,0 +1,61 @@
+﻿@page "/status"
+@using TouchBase.Model
+@inject IProjectService ProjectService
+
+<h1>Project Status</h1>
+
+<h5>Enter the name of your company below to check the status of all current projects.</h5>
+<br />
+<div class="mb-3">
+    <label class="form label">Company Name:</label>
+    <input type="text" @bind="_companyName" class="form-control" placeholder="Company" />
+    <button class="btn-primary btn" type="submit" @onclick="GetProjectCollectionAsync">Search</button>
+</div>
+@if(_projectCollectionModel != null)
+{
+<table class="table mt-5">
+    <thead class="table table-dark">
+        <tr>
+            <th scope="col">Project Name</th>
+            <th scope="col">Completed</th>
+            <th scope="col">Info</th>
+            <th scope="col">Estimate</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (_projectCollectionModel is null)
+        {
+
+        }
+        else 
+        {
+            foreach (var project in _projectCollectionModel?.ProjectModels)
+            {
+                <tr>
+                    <td>@project.Name</td>
+                    <td>@project.IsDone</td>
+                    <td>@project.Description</td>
+                    <td>@project.Approximation</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+}
+@code {
+    private string _companyName;
+
+    private ProjectCollectionModel _projectCollectionModel;
+
+    
+
+    private async Task GetProjectCollectionAsync()
+    {
+        _projectCollectionModel = await ProjectService.GetProjectCollectionModel(_companyName);
+        StateHasChanged();
+    }
+
+    
+
+}

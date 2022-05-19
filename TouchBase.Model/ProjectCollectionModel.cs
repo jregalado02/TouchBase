@@ -8,10 +8,11 @@ namespace TouchBase.Model
 {
     public class ProjectCollectionModel
     {
-        public int Id { get; set; }
+        public int ProjectCollectionModelId { get; set;}
 
-        public string Name { get; set; }
+        public string CompanyName { get; set;}
 
-        public List<ProjectModel> Projects { get; set; }
+        public List<ProjectModel> ProjectModels { get; set;}
     }
 }
+ 

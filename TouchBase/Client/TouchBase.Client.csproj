@@ -22,7 +22,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\TouchBase.Model\TouchBase.Model.csproj" />
     <ProjectReference Include="..\Shared\TouchBase.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\ProjectService\" />
   </ItemGroup>
 
 </Project>

@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TouchBase.Server", "TouchBase\Server\TouchBase.Server.csproj", "{D54F71EF-F295-4FD4-97CC-4EB08B6671F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TouchBase.Server", "TouchBase\Server\TouchBase.Server.csproj", "{D54F71EF-F295-4FD4-97CC-4EB08B6671F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TouchBase.Client", "TouchBase\Client\TouchBase.Client.csproj", "{B3004E43-41EC-4376-9187-AA6A5AB1EACC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TouchBase.Client", "TouchBase\Client\TouchBase.Client.csproj", "{B3004E43-41EC-4376-9187-AA6A5AB1EACC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TouchBase.Shared", "TouchBase\Shared\TouchBase.Shared.csproj", "{6B3DEF7F-7340-463C-8C8F-2AB0A00617E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TouchBase.Shared", "TouchBase\Shared\TouchBase.Shared.csproj", "{6B3DEF7F-7340-463C-8C8F-2AB0A00617E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TouchBase.Model", "TouchBase.Model\TouchBase.Model.csproj", "{38E65AEB-831D-497F-8337-54A4EC080984}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TouchBase.Model", "TouchBase.Model\TouchBase.Model.csproj", "{38E65AEB-831D-497F-8337-54A4EC080984}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TouchBase.Data", "TouchBase.Data\TouchBase.Data.csproj", "{2F1E5B3D-23CE-48D4-9A62-508608E22FDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TouchBase.Data", "TouchBase.Data\TouchBase.Data.csproj", "{2F1E5B3D-23CE-48D4-9A62-508608E22FDF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

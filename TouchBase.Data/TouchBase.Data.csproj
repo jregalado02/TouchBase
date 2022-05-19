@@ -23,4 +23,8 @@
     <ProjectReference Include="..\TouchBase.Model\TouchBase.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>
