@@ -51,48 +51,18 @@
                         <button class="btn-primary btn" type="button" @onclick="(()=>ShowProjectCollection(_projectCollectionModel.ProjectCollectionModelId))" >Add</button>
                     </td>
 
+
                 </tr>
                 
 
             </tbody>
 
         </table>
+      <button class="btn-danger btn" type="button" @onclick="(()=>Delete(project.ProjectModelId))">Delete</button>
          
 
     </div>
-    @*@if(_addButtonClicked == true)
-        {
-            <form class="mt-10">
-                 <div class="form-group row mt-xl-5" >
-                    <label for="inputProject" class="col-sm-2 col-form-label">Project Name:</label>
-                    <div class="col-sm-10">
-                    <input type="email" class="form-control" id="inputProject" placeholder="">
-                    </div>
-                 </div>
-                 <div>
-                     <label for="inputStatus" class="col-sm-2 col-for-label d-inline">Status:</label>
-                     <div class="d-inline">
-                     <select class="form-select d-inline" id="inputStatus">
-                         <option selcted>False</option>
-                         <option>True</option>
-                     </select>
-                     </div>
-
-                 </div>
-                <div class="form-group row">
-                     <label for="inputPassword3" class="col-sm-2 col-form-label">Description:</label>
-                     <div class="col-sm-10">
-                     <input type="password" class="form-control" id="inputDescription" placeholder="">
-                    </div>
-               </div>
-                 <div class="form-group row">
-                     <label for="inputPassword3" class="col-sm-2 col-form-label">Approximation:</label>
-                     <div class="col-sm-10">
-                     <input type="password" class="form-control" id="inputApproximation" placeholder="">
-                    </div>
-               </div>
-           </form>
-        }*@
+    
     }
 }
 
@@ -101,7 +71,7 @@
     private ProjectCollectionModel _projectCollectionModel;
     private bool _editButtonClicked;
     private bool _addButtonClicked;
-    
+
 
 
     private async Task GetProjectCollectionAsync()
@@ -116,14 +86,23 @@
     }
     private void ShowProjectCollection(int id)
     {
-         UriHelper.NavigateTo($"/add/{id}");
-        
+        UriHelper.NavigateTo($"/add/{id}");
+
     }
 
     private async Task Save(ProjectModel toSave)
     {
         toSave.ProjectCollectionModel = _projectCollectionModel;
         await ProjectService.SaveModel(toSave);
+    }
+
+    private async Task Delete(int id)
+    {
+
+        await ProjectService.DeleteModel(id);
+        GetProjectCollectionAsync();
+
+
     }
 
     

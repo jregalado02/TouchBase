@@ -15,18 +15,18 @@ namespace TouchBase.Server.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public ProjectController (ApplicationDbContext context)
+        public ProjectController(ApplicationDbContext context)
         {
             _context = context;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
-            {
+        {
             var pjects = await _context.DBProjects.ToListAsync();
             return Ok(pjects);
 
-            }
+        }
 
         [HttpGet("{id}")]
 
@@ -53,22 +53,32 @@ namespace TouchBase.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddProjectModel([FromBody]ProjectModel modelToAdd)
+        public async Task<IActionResult> AddProjectModel([FromBody] ProjectModel modelToAdd)
         {
-           if (!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-           else
-            {
-                _context.DBProjects.Add(modelToAdd);
-                await _context.SaveChangesAsync();
-                
-                return Ok();
-            }
+            var collection = await _context.DBProjectCollections.FirstOrDefaultAsync(m => m.ProjectCollectionModelId == modelToAdd.ProjectCollectionModelId);
 
+            modelToAdd.ProjectCollectionModel = collection;
+            modelToAdd.ProjectCollectionModelId = collection.ProjectCollectionModelId;
 
+            _context.DBProjects.Add(modelToAdd);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteProjectModel(int id)
+        {
+            var model  = await _context.DBProjects
+                .FirstOrDefaultAsync(x => x.ProjectModelId == id);
+            _context.DBProjects.Remove(model);
+            await _context.SaveChangesAsync();
+            return Ok();
         }
     }
 }

@@ -14,7 +14,11 @@ namespace TouchBase.Client.Services
 
         Task<ProjectCollectionModel> GetProjectCollectionModelFromId(int id);
 
+        Task CreateModel(ProjectModel model);
+
         Task SaveModel(ProjectModel projectModel);
+
+        Task DeleteModel(int id);
 
         
 

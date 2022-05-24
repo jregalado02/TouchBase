@@ -17,6 +17,6 @@ namespace TouchBase.Model
 
         public int ProjectCollectionModelId { get; set; }
 
-        public ProjectCollectionModel ProjectCollectionModel { get; set; }
+        public ProjectCollectionModel? ProjectCollectionModel { get; set; }
     }
 }

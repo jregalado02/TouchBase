@@ -63,16 +63,31 @@ namespace TouchBase.Client.Services
 
         public async Task SaveModel(ProjectModel projectModel)
         {
-            _http.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-            var serializerOptions = new JsonSerializerOptions();
-            serializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
-            var content = new StringContent(JsonSerializer.Serialize(projectModel, serializerOptions),Encoding.UTF8,"application/json");
-            var result = await _http.PutAsync("api/Project", content);
+            var result = await _http.PutAsync("api/Project", SerializeContent(projectModel));
         }
 
         public async Task CreateModel(ProjectModel projectModel)
         {
-            var result = _http.PostAsJsonAsync("api/Project", projectModel);
+            var result = await _http.PostAsync("api/Project", SerializeContent(projectModel));
+            
+        }
+
+        public async Task DeleteModel(int id )
+        {
+            
+            
+           var result = await _http.DeleteAsync($"api/Project/{id}");
+            
+        }
+
+        private HttpContent SerializeContent(ProjectModel model)
+        {
+            _http.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            var serializerOptions = new JsonSerializerOptions();
+            serializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+            var content = new StringContent(JsonSerializer.Serialize(model, serializerOptions), Encoding.UTF8, "application/json");
+
+            return content;
         }
 
 
