@@ -11,58 +11,68 @@
     <input type="text" @bind="_companyName" class="form-control" placeholder="Company" />
 
     <button class="btn-primary btn mt-1" type="submit" @onclick="GetProjectCollectionAsync">Search</button>
+
     @if (_projectCollectionModel != null)
     {
         <button class="btn-primary btn mt-1 ms-1" type="button" @onclick="EditButtonClicked">Edit</button>
     }
+    <h4 class="mt-3">Click here to add a new Company.</h4>
+    <button class="btn btn-primary mt-1" type="button" @onclick="SwitchToAddCollectionPage">Add Company</button>
 </div>
 
 @if (_editButtonClicked == true)
 {
     foreach (var project in _projectCollectionModel.ProjectModels)
     {
-    <div>
-        <h1>@_projectCollectionModel.CompanyName</h1>
-        <table class="table">
-            <thead class="table table-dark">
-                <tr>
-                    <th scope="col">Project Name</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Approximation</th>
-                </tr>
-            </thead>
-            <tbody>
+        <div>
+            <div class="d-inline-flex">
+               <h3>@_projectCollectionModel.CompanyName </h3>
+                <button class="oi oi-clipboard btn btn-success ms-2 mb-1" @onclick="(()=>EditCollectionName(_projectCollectionModel.ProjectCollectionModelId))" type="button"></button>
                 
-                <tr>
-                    <td> <input type="text" class="form-control" @bind="project.Name" /></td>
-                    <td>
-                        <select class="form-select" @bind="project.IsDone">
-                            <option selected>@project.IsDone</option>
-                            <option>!@project.IsDone</option>
-                        </select>
-                    </td>
-                    <td><input type="text" class="form-control" @bind="project.Description" /></td>
-                    <td><input type="text" class="form-control" @bind="project.Approximation" /></td>
-                    <td>
-                        <button class="btn-success btn" type="button" @onclick="() => Save(project)">Save</button>
-                    </td>
-                    <td>
-                        <button class="btn-primary btn" type="button" @onclick="(()=>ShowProjectCollection(_projectCollectionModel.ProjectCollectionModelId))" >Add</button>
-                    </td>
+            </div>
+            <table class="table">
+                <thead class="table table-dark">
+                    <tr>
+                        <th scope="col">Project Name</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Approximation</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td> <input type="text" class="form-control" @bind="project.Name" /></td>
+                        <td>
 
 
-                </tr>
-                
+                            <div class="form-check">
+                               
+                                <input class="form-check-input" type="checkbox"  @bind="project.IsDone"> 
+                                <label class="form-check-label">Finished </label>
+                            </div>
+                        </td>
+                        <td><input type="text" class="form-control" @bind="project.Description" /></td>
+                        <td><input type="text" class="form-control" @bind="project.Approximation" /></td>
+                        <td>
+                            <button class="btn-success btn" type="button" @onclick="() => Save(project)">Save</button>
+                        </td>
+                        <td>
+                            <button class="btn-primary btn" type="button" @onclick="(()=>ShowProjectCollection(_projectCollectionModel.ProjectCollectionModelId))">Add</button>
+                        </td>
 
-            </tbody>
 
-        </table>
-      <button class="btn-danger btn" type="button" @onclick="(()=>Delete(project.ProjectModelId))">Delete</button>
-         
+                    </tr>
 
-    </div>
-    
+
+                </tbody>
+
+            </table>
+            <button class="btn-danger btn mb-2" type="button" @onclick="(()=>Delete(project.ProjectModelId))">Delete</button>
+
+
+        </div>
+
     }
 }
 
@@ -71,6 +81,9 @@
     private ProjectCollectionModel _projectCollectionModel;
     private bool _editButtonClicked;
     private bool _addButtonClicked;
+    private bool _checked;
+
+    private bool _foundInProgress = false;
 
 
 
@@ -90,6 +103,16 @@
 
     }
 
+    private void EditCollectionName(int id)
+    {
+        UriHelper.NavigateTo($"/EditCollectionModel/{id}");
+    }
+
+    private void SwitchToAddCollectionPage()
+    {
+        UriHelper.NavigateTo($"/addcompany");
+    }
+
     private async Task Save(ProjectModel toSave)
     {
         toSave.ProjectCollectionModel = _projectCollectionModel;
@@ -105,7 +128,12 @@
 
     }
 
-    
+    private void CheckChange()
+    {
+        //project.IsDone = !project.IsDone;
+    }
+
+
 
     void Navigate() => UriHelper.NavigateTo("/add");
 }

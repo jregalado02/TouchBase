@@ -49,21 +49,16 @@ namespace TouchBase.Client.Services
             }
         }
 
-        public async Task<ProjectCollectionModel> Get2(string companyName)
-        {
-            //https://www.youtube.com/watch
-            //https://www.youtube.com/watch?v=SG3v8vxCYFU
-            //https://www.youtube.com/watch?v=SG3v8vxCYFU&a=aksldjkfl
-            // two query params= v and a
-
-            //https://localhost.com/api/ProjectCollection?comapnyName=
-            var result = await _http.GetFromJsonAsync<ProjectCollectionModel>("api/ProjectCollection?companyName=" + companyName);
-            return result;
-        }
+       
 
         public async Task SaveModel(ProjectModel projectModel)
         {
             var result = await _http.PutAsync("api/Project", SerializeContent(projectModel));
+        }
+
+        public async Task EditCollectionModel(ProjectCollectionModel projectCollectionModel)
+        {
+            var result = await _http.PutAsJsonAsync("api/ProjectCollection",projectCollectionModel);
         }
 
         public async Task CreateModel(ProjectModel projectModel)
@@ -71,6 +66,17 @@ namespace TouchBase.Client.Services
             var result = await _http.PostAsync("api/Project", SerializeContent(projectModel));
             
         }
+
+        public async Task CreateProjectCollectionModel(ProjectCollectionModel projectCollectionModel)
+        {
+            if (projectCollectionModel == null)
+            {
+                throw new ArgumentNullException(nameof(projectCollectionModel));
+            }
+
+            var result = await _http.PostAsJsonAsync<ProjectCollectionModel>("api/ProjectCollection", projectCollectionModel);
+        }
+
 
         public async Task DeleteModel(int id )
         {
@@ -90,16 +96,10 @@ namespace TouchBase.Client.Services
             return content;
         }
 
+        
 
 
-        public Task Get(int Id)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task GetCollections()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

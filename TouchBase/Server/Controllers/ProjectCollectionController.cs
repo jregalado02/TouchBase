@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TouchBase.Data;
 using TouchBase.Model;
+using System.Net;
 
 namespace TouchBase.Server.Controllers
 {
@@ -35,9 +36,29 @@ namespace TouchBase.Server.Controllers
             return Ok(Model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> PostProjectCollectionModel([FromBody] ProjectCollectionModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
+            _context.DBProjectCollections.Add(model);
+            await _context.SaveChangesAsync();
+            return Ok();
 
+        }
 
-
+        [HttpPut]
+        public async Task<IActionResult> PutProjectCollectionModel([FromBody]ProjectCollectionModel model)
+        {
+            var collectionToEdit = await _context.DBProjectCollections.FirstOrDefaultAsync(x => x.ProjectCollectionModelId == model.ProjectCollectionModelId);
+            if (collectionToEdit is null)
+            { return NotFound("No Collection Found!"); }
+            _context.Entry(collectionToEdit).CurrentValues.SetValues(model);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }

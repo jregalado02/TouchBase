@@ -1,0 +1,82 @@
+﻿@page "/addcompany"
+@using TouchBase.Model;
+@inject IProjectService ProjectService
+<h3>AddCompany</h3>
+<div>
+    <div class="form-group row mt-xl-5">
+        <label class="form-label p">Company Name:</label>
+
+        <input type="text" class="form-control" @bind="_collectionModel.CompanyName" placeholder="">
+
+    </div>
+
+    <table class="table mt-5">
+        <thead class="table table-dark">
+            <tr>
+                <th>Project Name</th>
+                <th>Status</th>
+                <th>Description</th>
+                <th>Approximation</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var projectModel in projectModels)
+            {
+                <tr>
+                    <td> <input type="text" class="form-control" @bind="projectModel.Name" /></td>
+                    <td>
+                        <div class="form-check">
+                               
+                                <input class="form-check-input" type="checkbox"  @bind="projectModel.IsDone"> 
+                                <label class="form-check-label">Finished </label>
+                            </div>
+                    </td>
+                    <td><input type="text" class="form-control" @bind="projectModel.Description" /></td>
+                    <td><input type="text" class="form-control" @bind="projectModel.Approximation" /></td>
+                    <td> <button class="btn btn-danger oi oi-delete" @onclick="()=>RemoveProjectModel(projectModel)"> </button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button class="btn btn-primary mt-4" @onclick="AddEmptyProjectModel">Add Project</button>
+
+    <button class="btn btn-success mt-4" @onclick="() => AddProjectCollectionModel(_collectionModel)">Save Company</button>
+</div>
+
+
+@code {
+    private ProjectCollectionModel _collectionModel = new ProjectCollectionModel();
+    private List<ProjectModel> projectModels = new();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        AddEmptyProjectModel();
+    }
+
+    private async Task AddProjectCollectionModel(ProjectCollectionModel model)
+    {
+        _collectionModel.ProjectModels = projectModels;
+        await ProjectService.CreateProjectCollectionModel(model);
+
+
+
+
+        // Do Http Stuff
+        //StateHasChanged();
+    }
+
+    private void AddEmptyProjectModel()
+    {
+        projectModels.Add(new ProjectModel());
+        StateHasChanged();
+    }
+
+    private void RemoveProjectModel(ProjectModel project)
+    {
+        projectModels.Remove(project);
+        StateHasChanged();
+    }
+}

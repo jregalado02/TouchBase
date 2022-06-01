@@ -9,11 +9,12 @@
 <div class="mb-3">
     <label class="form label">Company Name:</label>
     <input type="text" @bind="_companyName" class="form-control" placeholder="Company" />
-    <button class="btn-primary btn" type="submit" @onclick="GetProjectCollectionAsync">Search</button>
+    <button class="btn-primary btn mt-1" type="submit" @onclick="GetProjectCollectionAsync">Search</button>
 </div>
 @if(_projectCollectionModel != null)
 {
-<table class="table mt-5">
+    <h3 class="mt-5">@_projectCollectionModel.CompanyName</h3>
+<table class="table">
     <thead class="table table-dark">
         <tr>
             <th scope="col">Project Name</th>

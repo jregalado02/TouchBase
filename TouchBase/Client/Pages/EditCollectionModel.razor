@@ -1,0 +1,27 @@
+﻿
+@page "/EditCollectionModel/{id:int}"
+@using TouchBase.Model
+@inject IProjectService ProjectService
+@inject NavigationManager UriHelper
+
+<h3>Edit collection name</h3>
+<input class="form-control" type="text" @bind="_collectionModel.CompanyName" />
+<button class="btn btn-success" @onclick="()=>Edit(_collectionModel)">save</button>
+
+@code {
+    private ProjectCollectionModel _collectionModel;
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _collectionModel = await ProjectService.GetProjectCollectionModelFromId(Id);
+    }
+
+    private async void Edit(ProjectCollectionModel collectionModel)
+    {
+        
+        await ProjectService.EditCollectionModel(collectionModel);
+        
+    }
+}
